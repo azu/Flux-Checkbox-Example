@@ -1,0 +1,33 @@
+{
+  "name": "Flux-Checkbox-Example",
+  "description": "Flux pattern example ",
+  "version": "1.0.0",
+  "homepage": "https://github.com/azu/Flux-Checkbox-Example/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/azu/Flux-Checkbox-Example.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build":"webpack -p",
+    "watch":"webpack --watch -d",
+    "test": "mocha test/*.js"
+  },
+  "directories": {
+    "test": "test/"
+  },
+  "author": "azu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/azu/Flux-Checkbox-Example/issues"
+  },
+  "dependencies": {
+    "flux": "^2.0.1",
+    "ractive": "^0.6.0"
+  },
+  "devDependencies": {
+    "brfs": "^1.2.0",
+    "transform-loader": "^0.2.1",
+    "webpack": "^1.4.8"
+  }
+}
