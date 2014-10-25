@@ -4,6 +4,16 @@ Example app for Flux pattern.
 
 - [christianalfoni WebApp Enthusiast](http://christianalfoni.github.io/javascript/2014/08/20/react-js-and-flux.html "christianalfoni WebApp Enthusiast")
 
+## App
+
+Ractive.js
+
+- http://azu.github.io/Flux-Checkbox-Example/
+
+[vue.js](http://vuejs.org/ "vue.js")
+
+- http://azu.github.io/Flux-Checkbox-Example/vue/
+
 ## Installation
 
 ```
