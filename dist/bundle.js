@@ -14,20 +14,27 @@ webpackJsonp([0],{
 	// entry-point
 	var Ractive = __webpack_require__(/*! ractive */ 3);
 	var AppStore = __webpack_require__(/*! ./lib/stores/app-stores */ 7);
+	var AppAction = __webpack_require__(/*! ./lib/actions/app-actions */ 8);
 	var ractive = new Ractive({
 	    el: "js-main",
-	    template: "<ul>\n    {{#each users:i}}\n        <li>\n            <user index=\"{{i}}\"/>\n        </li>\n    {{/each}}\n</ul>",
+	    template: "<ul>\n    {{#each users:i}}\n        <li>\n            <user index=\"{{i}}\"/>\n        </li>\n    {{/each}}\n    <button on-click=\"addUser\">Add User</button>\n</ul>",
 	    data: {
 	        users: AppStore.getUsers()
 	    },
 	    components: {
-	        user: __webpack_require__(/*! ./lib/components/app-view */ 8)
+	        user: __webpack_require__(/*! ./lib/components/app-view */ 9)
 	    }
 	});
-	function onChange(users){
+	ractive.on("addUser", function () {
+	    AppAction.addUser({
+	        name: "tester",
+	        notify: false
+	    })
+	});
+	function onChange(users) {
 	    ractive.set("users", users);
 	}
-	AppStore.addChangeListener(function(){
+	AppStore.addChangeListener(function () {
 	    onChange(AppStore.getUsers());
 	});
 
@@ -46,10 +53,10 @@ webpackJsonp([0],{
 	 */
 	"use strict";
 	
-	var AppConstants = __webpack_require__(/*! ../constants/app-constants */ 32);
-	var AppDispatcher = __webpack_require__(/*! ../dispatchers/app-dispatchers */ 33);
+	var AppConstants = __webpack_require__(/*! ../constants/app-constants */ 33);
+	var AppDispatcher = __webpack_require__(/*! ../dispatchers/app-dispatchers */ 34);
 	var EventEmitter = __webpack_require__(/*! events */ 1).EventEmitter;
-	var merge = __webpack_require__(/*! react/lib/merge */ 31);
+	var merge = __webpack_require__(/*! react/lib/merge */ 32);
 	var CHANGE_EVENT = "change";
 	
 	var _users = [
@@ -64,6 +71,11 @@ webpackJsonp([0],{
 	    var user = _users[index];
 	    user.notify = !user.notify;
 	}
+	function addUser(user) {
+	    user.id = _users.length;
+	    _users.push(user);
+	}
+	
 	var AppStore = merge(EventEmitter.prototype, {
 	    emitChange: function () {
 	        this.emit(CHANGE_EVENT)
@@ -88,6 +100,9 @@ webpackJsonp([0],{
 	        case AppConstants.UPDATE_USER:
 	            updateUser(payload.action.index);
 	            break;
+	        case AppConstants.ADD_USER:
+	            addUser(payload.action.user);
+	            break;
 	    }
 	    AppStore.emitChange();
 	    return true;
@@ -98,6 +113,40 @@ webpackJsonp([0],{
 
 /***/ 8:
 /*!************************************!*\
+  !*** ./lib/actions/app-actions.js ***!
+  \************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by azu on 2014/10/25.
+	 * LICENSE : MIT
+	 */
+	"use strict";
+	var AppConstants = __webpack_require__(/*! ../constants/app-constants */ 33);
+	var AppDispatcher = __webpack_require__(/*! ../dispatchers/app-dispatchers */ 34);
+	
+	var AppActions = {
+	    updateUser: function (index) {
+	        AppDispatcher.handleViewAction({
+	            actionType: AppConstants.UPDATE_USER,
+	            index: index
+	        });
+	    },
+	    addUser: function (user) {
+	        AppDispatcher.handleViewAction({
+	            actionType: AppConstants.ADD_USER,
+	            user: user
+	        });
+	    }
+	
+	};
+	
+	module.exports = AppActions;
+
+/***/ },
+
+/***/ 9:
+/*!************************************!*\
   !*** ./lib/components/app-view.js ***!
   \************************************/
 /***/ function(module, exports, __webpack_require__) {
@@ -107,7 +156,7 @@ webpackJsonp([0],{
 	 * LICENSE : MIT
 	 */
 	"use strict";
-	var AppAction = __webpack_require__(/*! ../actions/app-actions */ 94);
+	var AppAction = __webpack_require__(/*! ../actions/app-actions */ 8);
 	var templateString = "<input type=\"checkbox\" on-click=\"clicked\" {{#if notify}}checked{{/if}}/> Notify {{name}} {{#if notify}}✔{{/if}}";
 	var Ractive = __webpack_require__(/*! ractive */ 3);
 	var UserComponent = Ractive.extend({
@@ -122,7 +171,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 32:
+/***/ 33:
 /*!****************************************!*\
   !*** ./lib/constants/app-constants.js ***!
   \****************************************/
@@ -134,12 +183,13 @@ webpackJsonp([0],{
 	 */
 	"use strict";
 	module.exports = {
+	    ADD_USER: "ADD_USER",
 	    UPDATE_USER: "UPDATE_USER"
 	};
 
 /***/ },
 
-/***/ 33:
+/***/ 34:
 /*!********************************************!*\
   !*** ./lib/dispatchers/app-dispatchers.js ***!
   \********************************************/
@@ -159,33 +209,6 @@ webpackJsonp([0],{
 	});
 	
 	module.exports = AppDispatcher;
-
-/***/ },
-
-/***/ 94:
-/*!************************************!*\
-  !*** ./lib/actions/app-actions.js ***!
-  \************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by azu on 2014/10/25.
-	 * LICENSE : MIT
-	 */
-	"use strict";
-	var AppConstants = __webpack_require__(/*! ../constants/app-constants */ 32);
-	var AppDispatcher = __webpack_require__(/*! ../dispatchers/app-dispatchers */ 33);
-	
-	var AppActions = {
-	    updateUser: function (index) {
-	        AppDispatcher.handleViewAction({
-	            actionType: AppConstants.UPDATE_USER,
-	            index: index
-	        });
-	    }
-	};
-	
-	module.exports = AppActions;
 
 /***/ }
 

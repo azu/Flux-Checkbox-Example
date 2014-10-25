@@ -12,6 +12,12 @@ var vue = new Vue({
         users: AppStore.getUsers(),
         clicked: function (index) {
             AppAction.updateUser(index);
+        },
+        addUser: function () {
+            AppAction.addUser({
+                name: "tester",
+                notify: false
+            })
         }
     }
 });

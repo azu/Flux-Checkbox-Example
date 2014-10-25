@@ -6,6 +6,7 @@
 // entry-point
 var Ractive = require("ractive");
 var AppStore = require("./lib/stores/app-stores");
+var AppAction = require("./lib/actions/app-actions");
 var ractive = new Ractive({
     el: "js-main",
     template: require("fs").readFileSync(__filename + ".handlebars", "utf-8"),
@@ -16,9 +17,15 @@ var ractive = new Ractive({
         user: require("./lib/components/app-view")
     }
 });
-function onChange(users){
+ractive.on("addUser", function () {
+    AppAction.addUser({
+        name: "tester",
+        notify: false
+    })
+});
+function onChange(users) {
     ractive.set("users", users);
 }
-AppStore.addChangeListener(function(){
+AppStore.addChangeListener(function () {
     onChange(AppStore.getUsers());
 });
