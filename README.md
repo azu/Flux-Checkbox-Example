@@ -6,7 +6,7 @@ Example app for Flux pattern.
 
 ## App
 
-Ractive.js
+[Ractive.js](http://www.ractivejs.org/ "Ractive.js")
 
 - http://azu.github.io/Flux-Checkbox-Example/
 
