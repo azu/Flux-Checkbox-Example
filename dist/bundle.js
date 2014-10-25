@@ -16,7 +16,7 @@ webpackJsonp([0],{
 	var AppStore = __webpack_require__(/*! ./lib/stores/app-stores */ 7);
 	var ractive = new Ractive({
 	    el: "js-main",
-	    template: "{{#each users:i}}\n    <user index=\"{{i}}\"/>\n{{/each}}",
+	    template: "<ul>\n    {{#each users:i}}\n        <li>\n            <user index=\"{{i}}\"/>\n        </li>\n    {{/each}}\n</ul>",
 	    data: {
 	        users: AppStore.getUsers()
 	    },
