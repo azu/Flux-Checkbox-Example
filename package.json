@@ -13,7 +13,6 @@
     "watch": "webpack --watch -d",
     "vue-build": "webpack -p --config vue/webpack.config.js",
     "vue-watch": "webpack --watch -d --config vue/webpack.config.js",
-
     "test": "mocha test/*.js"
   },
   "directories": {
@@ -26,6 +25,7 @@
   },
   "dependencies": {
     "flux": "^2.0.1",
+    "object-assign": "^1.0.0",
     "ractive": "^0.6.0",
     "vue": "^0.10.6"
   },

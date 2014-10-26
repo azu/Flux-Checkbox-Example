@@ -9,7 +9,7 @@ module.exports = {
     context: __dirname,
     entry: {
         app: "./index.js",
-        vendor: ["ractive", "flux", "react", "events"]
+        vendor: ["object-assign", "ractive", "flux", "events"]
     },
     output: {
         path: __dirname + "/dist",

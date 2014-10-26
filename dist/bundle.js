@@ -1,6 +1,5 @@
-webpackJsonp([0],{
-
-/***/ 0:
+webpackJsonp([1],[
+/* 0 */
 /*!******************!*\
   !*** ./index.js ***!
   \******************/
@@ -12,17 +11,17 @@ webpackJsonp([0],{
 	 */
 	"use strict";
 	// entry-point
-	var Ractive = __webpack_require__(/*! ractive */ 3);
-	var AppStore = __webpack_require__(/*! ./lib/stores/app-stores */ 7);
-	var AppAction = __webpack_require__(/*! ./lib/actions/app-actions */ 8);
+	var Ractive = __webpack_require__(/*! ractive */ 4);
+	var AppStore = __webpack_require__(/*! ./lib/stores/app-stores */ 6);
+	var AppAction = __webpack_require__(/*! ./lib/actions/app-actions */ 7);
 	var ractive = new Ractive({
 	    el: "js-main",
-	    template: "<ul>\n    {{#each users:i}}\n        <li>\n            <user index=\"{{i}}\"/>\n        </li>\n    {{/each}}\n    <button on-click=\"addUser\">Add User</button>\n</ul>",
+	    template: "<ul>\n    {{#each users:i}}\n        <li>\n            <user index=\"{{i}}\"/>\n        </li>\n    {{/each}}\n</ul>\n<button on-click=\"addUser\">Add User</button>\n",
 	    data: {
 	        users: AppStore.getUsers()
 	    },
 	    components: {
-	        user: __webpack_require__(/*! ./lib/components/app-view */ 9)
+	        user: __webpack_require__(/*! ./lib/components/app-view */ 8)
 	    }
 	});
 	ractive.on("addUser", function () {
@@ -40,8 +39,12 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 7:
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */
 /*!**********************************!*\
   !*** ./lib/stores/app-stores.js ***!
   \**********************************/
@@ -53,10 +56,10 @@ webpackJsonp([0],{
 	 */
 	"use strict";
 	
-	var AppConstants = __webpack_require__(/*! ../constants/app-constants */ 33);
-	var AppDispatcher = __webpack_require__(/*! ../dispatchers/app-dispatchers */ 34);
+	var AppConstants = __webpack_require__(/*! ../constants/app-constants */ 10);
+	var AppDispatcher = __webpack_require__(/*! ../dispatchers/app-dispatchers */ 11);
 	var EventEmitter = __webpack_require__(/*! events */ 1).EventEmitter;
-	var merge = __webpack_require__(/*! react/lib/merge */ 32);
+	var objectAssign = __webpack_require__(/*! object-assign */ 2);
 	var CHANGE_EVENT = "change";
 	
 	var _users = [
@@ -76,7 +79,7 @@ webpackJsonp([0],{
 	    _users.push(user);
 	}
 	
-	var AppStore = merge(EventEmitter.prototype, {
+	var AppStore = objectAssign(EventEmitter.prototype, {
 	    emitChange: function () {
 	        this.emit(CHANGE_EVENT)
 	    },
@@ -110,8 +113,7 @@ webpackJsonp([0],{
 	module.exports = AppStore;
 
 /***/ },
-
-/***/ 8:
+/* 7 */
 /*!************************************!*\
   !*** ./lib/actions/app-actions.js ***!
   \************************************/
@@ -122,8 +124,8 @@ webpackJsonp([0],{
 	 * LICENSE : MIT
 	 */
 	"use strict";
-	var AppConstants = __webpack_require__(/*! ../constants/app-constants */ 33);
-	var AppDispatcher = __webpack_require__(/*! ../dispatchers/app-dispatchers */ 34);
+	var AppConstants = __webpack_require__(/*! ../constants/app-constants */ 10);
+	var AppDispatcher = __webpack_require__(/*! ../dispatchers/app-dispatchers */ 11);
 	
 	var AppActions = {
 	    updateUser: function (index) {
@@ -144,8 +146,7 @@ webpackJsonp([0],{
 	module.exports = AppActions;
 
 /***/ },
-
-/***/ 9:
+/* 8 */
 /*!************************************!*\
   !*** ./lib/components/app-view.js ***!
   \************************************/
@@ -156,9 +157,9 @@ webpackJsonp([0],{
 	 * LICENSE : MIT
 	 */
 	"use strict";
-	var AppAction = __webpack_require__(/*! ../actions/app-actions */ 8);
+	var AppAction = __webpack_require__(/*! ../actions/app-actions */ 7);
 	var templateString = "<input type=\"checkbox\" on-click=\"clicked\" {{#if notify}}checked{{/if}}/> Notify {{name}} {{#if notify}}✔{{/if}}";
-	var Ractive = __webpack_require__(/*! ractive */ 3);
+	var Ractive = __webpack_require__(/*! ractive */ 4);
 	var UserComponent = Ractive.extend({
 	    template: templateString,
 	    init: function () {
@@ -170,8 +171,8 @@ webpackJsonp([0],{
 	module.exports = UserComponent;
 
 /***/ },
-
-/***/ 33:
+/* 9 */,
+/* 10 */
 /*!****************************************!*\
   !*** ./lib/constants/app-constants.js ***!
   \****************************************/
@@ -188,17 +189,17 @@ webpackJsonp([0],{
 	};
 
 /***/ },
-
-/***/ 34:
+/* 11 */
 /*!********************************************!*\
   !*** ./lib/dispatchers/app-dispatchers.js ***!
   \********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var Dispatcher = __webpack_require__(/*! flux */ 2).Dispatcher;
-	var copyProperties = __webpack_require__(/*! react/lib/copyProperties */ 95);
-	var AppDispatcher = copyProperties(new Dispatcher(), {
+	var Dispatcher = __webpack_require__(/*! flux */ 3).Dispatcher;
+	var objectAssign = __webpack_require__(/*! object-assign */ 2);
+	
+	var AppDispatcher = objectAssign(new Dispatcher(), {
 	    handleViewAction: function (action) {
 	        console.log('action', action);
 	        this.dispatch({
@@ -207,10 +208,8 @@ webpackJsonp([0],{
 	        })
 	    }
 	});
-	
 	module.exports = AppDispatcher;
 
 /***/ }
-
-});
+]);
 //# sourceMappingURL=bundle.js.map
